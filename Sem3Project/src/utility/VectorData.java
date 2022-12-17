@@ -17,6 +17,10 @@ public class VectorData {
 	public VectorData(VectorData _VD) {
 		vectors = _VD.vectors;
 	}
+	//create from DataInputStream
+	public VectorData(DataInputStream _dis) {
+		this.readData(_dis);
+	}
 	
 	public List<Double> getList(){
 		List<Double> ret = new ArrayList<Double>();

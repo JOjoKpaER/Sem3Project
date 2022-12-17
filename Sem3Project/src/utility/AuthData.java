@@ -17,6 +17,10 @@ public class AuthData {
 	public AuthData(AuthData _AD) {
 		this.name = _AD.name; this.password = _AD.password; this.param = _AD.param;
 	}
+	//create from DataInputStream
+	public AuthData(DataInputStream _dis) {
+		this.readData(_dis);
+	}
 	
 	public void writeData(DataOutputStream _dos) {
 		try {
