@@ -44,7 +44,7 @@ public class AuthServer implements IAuthServer {
 			}
 		}
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + AD.param);
+			//throw new IllegalArgumentException("Unexpected value: " + AD.param);
 		}
 	}
 

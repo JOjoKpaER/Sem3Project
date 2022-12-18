@@ -27,6 +27,7 @@ public class AuthData {
 			_dos.writeUTF(name);
 			_dos.writeUTF(password);
 			_dos.writeInt(param.getValue());
+			_dos.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

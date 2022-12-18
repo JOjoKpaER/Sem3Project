@@ -1,10 +1,10 @@
 package server.model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public interface IGraphServer {
 
-	void response(DataInputStream _in, DataOutputStream _out);
+	void response(ObjectInputStream _in, ObjectOutputStream _out);
 
 }
