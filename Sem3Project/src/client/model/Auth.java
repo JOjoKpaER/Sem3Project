@@ -33,7 +33,7 @@ public class Auth extends Model implements IAuth {
 class ServerRequestAuth extends Thread{
 	
 	private Socket client;
-	private AuthData Answer;
+	private AuthData Answer = new AuthData(null, null, null);
 	private AuthUpdatable updatable;
 	
 	public ServerRequestAuth(String _server, int _port, AuthUpdatable _updatable) {
@@ -52,6 +52,7 @@ class ServerRequestAuth extends Thread{
 	public void requestRegister(String _name, String _password) {
 		try {
 			new AuthData(_name, _password, AuthDataEnum.registration).writeData(new DataOutputStream(client.getOutputStream()));
+			this.run();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +63,7 @@ class ServerRequestAuth extends Thread{
 	public void requestLogin(String _name, String _password) {
 		try {
 			new AuthData(_name, _password, AuthDataEnum.login).writeData(new DataOutputStream(client.getOutputStream()));
+			this.run();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,9 +1,9 @@
 package client.model;
 
 import java.io.File;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -34,9 +34,7 @@ public class Graph extends Model implements IGraph  {
 	public void requestSolve(GraphUpdatable updatable) {
 		if (VD == null) return;
 		ServerRequest SR = new ServerRequest(serverAddress, port, updatable);
-		SR.sendData(VD);
-		SR.run();
-		
+		SR.sendData(VD);		
 	}
 
 	@Override
@@ -50,7 +48,8 @@ public class Graph extends Model implements IGraph  {
 class ServerRequest extends Thread {
 	
 	private Socket client;
-	private VectorData Answer;
+	private VectorData Answer = new VectorData();
+	private VectorData send;
 	private GraphUpdatable updatable;
 	
 	public ServerRequest(String _server, int _port, GraphUpdatable _updatable) {
@@ -67,12 +66,8 @@ class ServerRequest extends Thread {
 	}
 	
 	public void sendData(VectorData _VD) {
-		try {
-			_VD.writeData(new DataOutputStream(client.getOutputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		send = _VD;
+		this.run();
 	}
 	
 	public VectorData getData() {
@@ -84,7 +79,8 @@ class ServerRequest extends Thread {
 	@Override
 	public void run(){
 		try {
-			Answer.readData(new DataInputStream(client.getInputStream()));
+			send.writeData(new ObjectOutputStream(client.getOutputStream()));
+			Answer.readData(new ObjectInputStream(client.getInputStream()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
