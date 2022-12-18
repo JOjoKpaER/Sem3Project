@@ -1,8 +1,9 @@
 package utility;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,9 @@ public class VectorData {
 		vectors = _VD.vectors;
 	}
 	//create from DataInputStream
-	public VectorData(DataInputStream _dis) {
-		this.readData(_dis);
+	public VectorData(ObjectInputStream _ois) {
+		vectors = new ArrayList<DoubleVector>();
+		this.readData(_ois);
 	}
 	
 	public List<Double> getList(){
@@ -43,33 +45,48 @@ public class VectorData {
 		vectors.addAll(_DV);
 	}
 
-	public void writeData(DataOutputStream _dos) {
-		vectors.forEach((DV) -> {
-			try {
-				_dos.writeDouble(DV.x);
-				_dos.writeDouble(DV.y);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+	public void writeData(ObjectOutputStream _oos) {
+		try {
+			_oos.writeObject(vectors);
+			_oos.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void readData(DataInputStream _dis) {
-		while (true)
+	public void readData(ObjectInputStream _ois) {
 		try {
-		vectors.add(new DoubleVector(
-				_dis.readDouble(),
-				_dis.readDouble()
-				));
+			vectors = (List<DoubleVector>) _ois.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			break;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
 
-class DoubleVector{
+class DoubleVector implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7870145026521589831L;
 	public double x,y;
 	
 	public DoubleVector(double _x, double _y) {x = _x; y = _y;}
+	
+	private void writeObject(java.io.ObjectOutputStream out) throws IOException{
+		out.defaultWriteObject();
+		out.writeDouble(x);
+		out.writeDouble(y);
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{
+		in.defaultReadObject();
+		x = in.readDouble();
+		y = in.readDouble();
+	}
+	
 }
