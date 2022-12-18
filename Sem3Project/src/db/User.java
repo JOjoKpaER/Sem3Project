@@ -45,7 +45,7 @@ public class User {
 	
 	public boolean Check () 
 	{
-		return db.matchRowInDB(ds, Login, toSHA1(Password.getBytes()));
+		return db.matchRowInDB(ds, Login, /*toSHA1(*/Password/*.getBytes())*/);
 	}
 	
 	public void AddUser (/*Shell shell*/) throws Exception
@@ -60,7 +60,7 @@ public class User {
 		finally {
 			if (Login != null && Password != null) {
 		db.insertValueToDB(ds, "NAME", Login);
-		db.updateRowInDB(ds, "PASSWORD", toSHA1(Password.getBytes()), "NAME", Login);
+		db.updateRowInDB(ds, "PASSWORD", /*toSHA1(*/Password/*.getBytes())*/, "NAME", Login);
 			}
 		}
 	}
