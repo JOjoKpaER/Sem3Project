@@ -23,7 +23,7 @@ public class NearestNeighbour_method {
 		int[] path = FindPath(array, array.length, 0);
 		VectorData answer = new VectorData();
 		for (int j = 0; j < path.length; j++) {
-			answer.add(_list.get(path[j]), _list.get(path[j] + 1));
+			answer.add(_list.get(path[j] * 2), _list.get(path[j] * 2 + 1));
 		}
 		return answer;
 	}
