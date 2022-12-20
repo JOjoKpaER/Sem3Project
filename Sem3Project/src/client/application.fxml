@@ -16,8 +16,7 @@
                <children>
                   <TextField fx:id="login_text_login" layoutX="10.0" layoutY="62.0" prefHeight="0.0" prefWidth="380.0" promptText="login" />
                   <PasswordField fx:id="login_text_pass" layoutX="10.0" layoutY="114.0" prefHeight="26.0" prefWidth="380.0" promptText="password" />
-                  <Button fx:id="login_btn_login" layoutX="50.0" layoutY="157.0" mnemonicParsing="false" onAction="#Login" prefHeight="26.0" prefWidth="110.0" text="Login" />
-                  <Button layoutX="241.0" layoutY="157.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Reset" />
+                  <Button fx:id="login_btn_login" layoutX="105.0" layoutY="157.0" mnemonicParsing="false" onAction="#Login" prefHeight="26.0" prefWidth="191.0" text="Login" />
                   <Button fx:id="login_btn_reg" layoutX="105.0" layoutY="200.0" mnemonicParsing="false" onAction="#Register" prefHeight="25.0" prefWidth="191.0" text="Registration" />
                   <Label fx:id="login_lbl_message" layoutX="9.0" layoutY="243.0" prefHeight="18.0" prefWidth="380.0" />
                </children>
